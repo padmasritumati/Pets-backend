@@ -22,4 +22,5 @@ module.exports = {
     dialect: "postgres",
     operatorsAliases: "0",
   },
+  
 };
