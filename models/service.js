@@ -14,8 +14,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   service.init({
-    type_of_service: DataTypes.STRING,
-    rate: DataTypes.INTEGER
+    boarding: DataTypes.BOOLEAN,
+    houseSitting:DataTypes.BOOLEAN,
+    dropInVisits:DataTypes.BOOLEAN,
+    doggyDayCare:DataTypes.BOOLEAN,
+    dogWalking:DataTypes.BOOLEAN,
+    boardingRate: DataTypes.INTEGER,
+    houseSittingRate:DataTypes.INTEGER,
+    dropInVisitsRate:DataTypes.INTEGER,
+    doggyDayCareRate:DataTypes.INTEGER,
+    dogWalkingRate:DataTypes.INTEGER,
+    small:DataTypes.BOOLEAN,
+    medium:DataTypes.BOOLEAN,
+    large:DataTypes.BOOLEAN,
+    gaint:DataTypes.BOOLEAN,
+    cat:DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'service',

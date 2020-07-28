@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      house_number: {
+        type: Sequelize.INTEGER
+      },
       street: {
         type: Sequelize.STRING
       },
@@ -15,6 +18,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       postcode: {
+        type: Sequelize.STRING
+      },
+      country: {
         type: Sequelize.STRING
       },
       createdAt: {
