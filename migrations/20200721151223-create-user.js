@@ -23,8 +23,11 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
-      role: {
-        type: Sequelize.STRING,
+      petOwner:{
+        type: Sequelize.BOOLEAN,
+      },
+      petSitter:{
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
