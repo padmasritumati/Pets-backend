@@ -8,7 +8,9 @@ const authRouter = require("./routers/auth");
 const sitterRouter=require("./routers/becomeSitter")
 const searchRouter=require("./routers/searchSitter")
 const sitterByIdRouter=require("./routers/sitterById")
+const reviewRouter=require("./routers/review")
 const authMiddleWare = require("./auth/middleware");
+
 
 const app = express();
 
@@ -133,6 +135,7 @@ app.use("/", authRouter);
 app.use("/become_a_sitter",sitterRouter)
 app.use("/search_sitters",searchRouter)
 app.use("/sitter",sitterByIdRouter)
+app.use("/review", reviewRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
