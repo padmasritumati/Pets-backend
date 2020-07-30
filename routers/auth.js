@@ -35,8 +35,8 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, password, full_name } = req.body;
-  if (!email || !password || !full_name) {
+  const { email, password, full_name,petOwner ,petSitter} = req.body;
+  if (!email || !password || !full_name ) {
     return res.status(400).send("Please provide an email, password and a name");
   }
   console.log("n:",full_name,"e:",email,"p:",password)
@@ -44,7 +44,9 @@ router.post("/signup", async (req, res) => {
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      full_name
+      full_name,
+      petOwner,
+      petSitter
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
