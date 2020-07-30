@@ -9,13 +9,13 @@ const authMiddleware = require("../auth/middleware");
 
 router.post("/", authMiddleware, async (req, res) => {
   const userLogged = req.user.dataValues;
-  const { rating, review_description } = req.body;
+  const { rating, review_description ,sitterUserId} = req.body;
   console.log("rating",req.body)
 
   if (!rating || !review_description) {
     return res.status(400).send("Please fill out all the fields");
   } 
-   else if (rating < 1 || rating > 5 ) {
+   else if (rating < 1 || rating > 5 ||!sitterUserId) {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 
@@ -23,6 +23,7 @@ router.post("/", authMiddleware, async (req, res) => {
     const newReview = await Review.create({
     rating,
     review_description,
+    sitterUserId,
     userId: userLogged.id,
     });
 
