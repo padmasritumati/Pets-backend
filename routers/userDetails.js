@@ -3,6 +3,7 @@ const auth = require("../auth/middleware");
 const Address = require("../models").address;
 const User = require("../models").user;
 const Service = require("../models").service;
+const Pet = require("../models").pet;
 const router = new Router();
 
 router.post("/address", auth, async (req, res) => {
@@ -56,7 +57,7 @@ router.post("/phone", auth, async (req, res) => {
 
 router.post("/services", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
-  console.log("user",userLogged)
+  console.log("user", userLogged);
   console.log("services", req.body);
 
   const {
@@ -94,7 +95,7 @@ router.post("/services", auth, async (req, res) => {
       large,
       gaint,
       cat,
-      userId:userLogged.id,
+      userId: userLogged.id,
     });
 
     res.status(201).json(userServices);
@@ -102,4 +103,32 @@ router.post("/services", auth, async (req, res) => {
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
+
+router.post("/pets", auth, async (req, res) => {
+  const userLogged = req.user.dataValues;
+  console.log("post", req.body);
+  const { type, name, weight, breed, ageInYears, ageInMonths, sex } = req.body;
+
+  if (!type || !name || !breed || !sex) {
+    return res.status(400).send("Please fill out all the fields");
+  }
+
+  try {
+    const pet = await Pet.create({
+      type,
+      name,
+      weight,
+      breed,
+      ageInYears,
+      ageInMonths,
+      sex,
+      userId: userLogged.id,
+    });
+
+    res.status(201).json(pet);
+  } catch (error) {
+    return res.status(400).send({ message: "Something went wrong, sorry" });
+  }
+});
+
 module.exports = router;

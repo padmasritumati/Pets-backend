@@ -5,7 +5,7 @@ const express = require("express");
 const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
-const sitterRouter=require("./routers/becomeSitter")
+const userDetailsRouter=require("./routers/userDetails")
 const searchRouter=require("./routers/searchSitter")
 const sitterByIdRouter=require("./routers/sitterById")
 const reviewRouter=require("./routers/review")
@@ -132,7 +132,7 @@ app.post("/authorized_post_request", authMiddleWare, (req, res) => {
 });
 
 app.use("/", authRouter);
-app.use("/become_a_sitter",sitterRouter)
+app.use("/user_details",userDetailsRouter)
 app.use("/search_sitters",searchRouter)
 app.use("/sitter",sitterByIdRouter)
 app.use("/review", reviewRouter);
