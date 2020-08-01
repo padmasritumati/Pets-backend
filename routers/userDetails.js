@@ -6,9 +6,16 @@ const Service = require("../models").service;
 const Pet = require("../models").pet;
 const router = new Router();
 
+router.get("/address", auth, async (req, res) => {
+  const userLogged = req.user.dataValues;
+  const userId=userLogged.id
+  const address = await Address.findByPk(userId);
+  res.status(200).send({ message: "ok", address });
+});
+
 router.post("/address", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
-
+  
   const { house_number, street, city, postcode, country } = req.body;
 
   if (!house_number || !street || !city || !postcode || !country) {
@@ -106,8 +113,7 @@ router.post("/services", auth, async (req, res) => {
 
 router.post("/pets", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
-  console.log("post", req.body);
-  const { type, name, weight, breed, ageInYears, ageInMonths, sex } = req.body;
+  const { type, name, weight, breed, ageInYears, ageInMonths, sex ,image} = req.body;
 
   if (!type || !name || !breed || !sex) {
     return res.status(400).send("Please fill out all the fields");
@@ -122,6 +128,7 @@ router.post("/pets", auth, async (req, res) => {
       ageInYears,
       ageInMonths,
       sex,
+      image,
       userId: userLogged.id,
     });
 

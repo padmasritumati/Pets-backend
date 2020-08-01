@@ -3,6 +3,7 @@ const auth = require("../auth/middleware");
 const Address = require("../models").address;
 const User = require("../models").user;
 const Service = require("../models").service;
+const Pet=require("../models").pet
 const router = new Router();
 
 router.get("/:id", async (req, res) => {
@@ -10,11 +11,11 @@ router.get("/:id", async (req, res) => {
 
   console.log(id);
   if (isNaN(parseInt(id))) {
-    return res.status(400).send({ message: "Homepage id is not a number" });
+    return res.status(400).send({ message: "sitter id is not a number" });
   }
 
   const sitter = await User.findByPk(id, {
-    include: [Address, Service],
+    include: [Address, Service,Pet],
   });
 
   if (sitter === null) {

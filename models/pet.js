@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     weight: DataTypes.INTEGER,
     ageInYears: DataTypes.INTEGER,
     ageInMonths: DataTypes.INTEGER,
-    sex: DataTypes.STRING
+    sex: DataTypes.STRING,
+    image:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'pet',
