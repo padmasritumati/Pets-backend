@@ -13,6 +13,20 @@ router.get("/address", auth, async (req, res) => {
   res.status(200).send({ message: "ok", address });
 });
 
+router.get("/service", auth, async (req, res) => {
+  const userLogged = req.user.dataValues;
+  const userId=userLogged.id
+  const service = await Service.findByPk(userId);
+  res.status(200).send({ message: "ok", service });
+});
+
+router.get("/pet", auth, async (req, res) => {
+  const userLogged = req.user.dataValues;
+  const userId=userLogged.id
+  const pets = await Pet.findAll({where:{userId:userId}});
+  res.status(200).send({ message: "ok", pets });
+});
+
 router.post("/address", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
   
