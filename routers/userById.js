@@ -14,8 +14,7 @@ router.get("/:id", async (req, res) => {
     return res.status(400).send({ message: "user id is not a number" });
   }
   const user = await User.findByPk(id, {
-    include: [Address,Service]
-    
+    include: [Address, Service],
   });
   if (user === null) {
     return res.status(404).send({ message: "user not found" });
@@ -23,26 +22,30 @@ router.get("/:id", async (req, res) => {
   res.status(200).send({ message: "ok", user });
 });
 
-
-router.post("/contact",  async (req, res, next) => {
-try{
+router.post("/contact", auth, async (req, res, next) => {
+  try {
+    const userLogged = req.user.dataValues;
+    const { mailToId, userId, message } = req.body;
+    console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: 'pets2020pet@gmail.com',
-        pass: '26081590',
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD_EMAIL,
       },
     });
+    console.log("after");
 
     var mailOptions = {
-      from:"pets2020pet@gmail.com",
+      from: `${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
       to: "pets2020pet@gmail.com",
-      subject: "You have received a new request!🐶🐱",
-      text:"from the pets"
-      
+      subject: "You have received a new request!",
+      text:message ,
     };
+    console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+        console.log("error", error);
         return res.status(400).send({ message: "Something went wrong, sorry" });
       } else {
         console.log("Email sent: " + info.response);
@@ -50,6 +53,7 @@ try{
       }
     });
   } catch (e) {
+    console.log("Exception", e);
     return res.status(400).send({ message: "Something went wrong, sorry" });
   }
 });
