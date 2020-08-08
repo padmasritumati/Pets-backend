@@ -26,6 +26,7 @@ router.post("/contact", auth, async (req, res, next) => {
   try {
     const userLogged = req.user.dataValues;
     const { mailToId, userId, message } = req.body;
+    const toSend= await User.findByPk(mailToId)
     console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -40,7 +41,10 @@ router.post("/contact", auth, async (req, res, next) => {
       from: `${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
       to: "pets2020pet@gmail.com",
       subject: "You have received a new request!",
-      text:message ,
+      html: `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
+      <p><u>Message</u>:${message}</p>
+      <p>You can find more information <a href="http://localhost:3000/contact/${userLogged.id}">here</a></p>
+      `,
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
