@@ -14,14 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.booking)
     }
   };
+  
   pet.init({
     name: DataTypes.STRING,
-    type_of_pet: DataTypes.STRING,
+    type: DataTypes.STRING,
     breed: DataTypes.STRING,
     weight: DataTypes.INTEGER,
-    age_years: DataTypes.INTEGER,
-    age_months: DataTypes.INTEGER,
-    sex: DataTypes.BOOLEAN
+    ageInYears: DataTypes.INTEGER,
+    ageInMonths: DataTypes.INTEGER,
+    sex: DataTypes.STRING,
+    image:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'pet',

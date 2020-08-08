@@ -23,6 +23,14 @@ module.exports = {
       country: {
         type: Sequelize.STRING
       },
+      latitude: {
+        type: Sequelize.DECIMAL,
+        
+      },
+      longitude: {
+        type: Sequelize.DECIMAL,
+        
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

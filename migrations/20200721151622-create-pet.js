@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      type_of_pet: {
+      type: {
         type: Sequelize.STRING
       },
       breed: {
@@ -20,14 +20,17 @@ module.exports = {
       weight: {
         type: Sequelize.INTEGER
       },
-      age_years: {
+      ageInYears: {
         type: Sequelize.INTEGER
       },
-      age_months: {
+      ageInMonths: {
         type: Sequelize.INTEGER
       },
       sex: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
+      },
+      image: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
