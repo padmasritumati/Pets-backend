@@ -13,11 +13,11 @@ Pets is an application that connects pet owners with dog people who’ll treat t
 
 Diagram of data models:
 
-![data-models](./images/Pets_DB Diagram.png)
+![data-models](./image/Pets_DB Diagram.png)
 
 ## Client
 
-**[Here](https://github.com/paula-morales/fluffy-world-client)** you can find the server repository for this project.
+**[Here](https://github.com/padmasritumati/Pets-frontend)** you can find the server repository for this project.
 
 ## Technologies used
 
