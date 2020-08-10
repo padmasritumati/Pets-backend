@@ -13,7 +13,7 @@ Pets is an application that connects pet owners with dog people who’ll treat t
 
 Diagram of data models:
 
-![data-models](./image/Pets_DB Diagram.png)
+![data-models](./image/diagram.png)
 
 ## Client
 
