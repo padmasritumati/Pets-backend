@@ -12,8 +12,8 @@ module.exports = {
           postcode:"3605GX",
           country:"Netherlands",
           userId:1,
-          latitude:52.141310,
-          longitude:5.019130,
+          latitude:52.1417089,
+          longitude:5.0187138,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -24,8 +24,8 @@ module.exports = {
           postcode:"3607BK",
           country:"Netherlands",
           userId:2,
-          latitude:52.132000,
-          longitude:5.026900,
+          latitude:52.1302586,
+          longitude:5.0263534,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -35,8 +35,8 @@ module.exports = {
           city: "maarssen",
           postcode:"3607BK",
           country:"Netherlands",
-          latitude:52.132000,
-          longitude:5.026900,
+          latitude:52.1314383,
+          longitude:5.0255726,
           userId:3,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -48,8 +48,8 @@ module.exports = {
           postcode:"3605GX",
           country:"Netherlands",
           userId:4,
-          latitude:52.141310,
-          longitude:5.019130,
+          latitude:52.1400791,
+          longitude:5.0179213,
           createdAt: new Date(),
           updatedAt: new Date()
         }
