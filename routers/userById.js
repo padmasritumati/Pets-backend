@@ -25,8 +25,17 @@ router.get("/:id", async (req, res) => {
 router.post("/contact", auth, async (req, res, next) => {
   try {
     const userLogged = req.user.dataValues;
-    const { mailToId, userId, message } = req.body;
-    const toSend= await User.findByPk(mailToId)
+    const {
+      mailToId,
+      userId,
+      message,
+      time,
+      date,
+      enddate,
+      selectedservice,
+      pet,
+    } = req.body;
+    const toSend = await User.findByPk(mailToId);
     console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -42,9 +51,18 @@ router.post("/contact", auth, async (req, res, next) => {
       to: "pets2020pet@gmail.com",
       subject: "You have received a new request!",
       html: `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
+      <h3><strong>${
+        userLogged.full_name
+      }</strong> has required your services.</h3>
+      <p><u>Requested Service</u>: ${selectedservice} </p>
+      <p><u>Date</u>:${date}</p>
+      <p>${selectedservice === "Boarding" ? `End Date:${enddate}` : ""}</p>
+      <p><u>Time</u>:${time}</p>
       <p><u>Message</u>:${message}</p>
-      <p>You can find more information <a href="http://localhost:3000/contact/${userLogged.id}">here</a></p>
-      `,
+      <p><u>Pet</u>:${pet}</p>
+     
+      
+      `
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
