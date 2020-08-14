@@ -48,7 +48,7 @@ router.post("/contact", auth, async (req, res, next) => {
 
     var mailOptions = {
       from: `${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
-      to: "pets2020pet@gmail.com",
+      to: `${userLogged.email}`,
       subject: "You have received a new request!",
       html: `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
       <h3><strong>${
