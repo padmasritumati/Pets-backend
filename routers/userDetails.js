@@ -30,9 +30,9 @@ router.get("/pet", auth, async (req, res) => {
 router.post("/address", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
   
-  const { house_number, street, city, postcode, country } = req.body;
+  const { house_number, street, city, postcode, country,lat,lng } = req.body;
 
-  if (!house_number || !street || !city || !postcode || !country) {
+  if (!house_number || !street || !city || !postcode || !country||!lat||!lng) {
     return res.status(400).send("Please fill out all the fields");
   }
 
@@ -43,6 +43,8 @@ router.post("/address", auth, async (req, res) => {
       city,
       postcode,
       country,
+      latitude:lat,
+      longitude:lng,
       userId: userLogged.id,
     });
 
