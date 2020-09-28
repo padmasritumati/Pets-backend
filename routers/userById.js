@@ -7,6 +7,9 @@ const Pet = require("../models").pet;
 const nodemailer = require("nodemailer");
 const router = new Router();
 
+
+
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   console.log(id);
@@ -48,7 +51,7 @@ router.post("/contact", auth, async (req, res, next) => {
 
     var mailOptions = {
       from: `${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
-      to: `${userLogged.email}`,
+      to: `${toSend.email}`,
       subject: "You have received a new request!",
       html: `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
       <h3><strong>${
