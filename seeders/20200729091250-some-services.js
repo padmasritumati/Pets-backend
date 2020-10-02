@@ -40,7 +40,7 @@ module.exports = {
           medium: true,
           large: true,
           gaint: true,
-          cat: true,
+          cat: false,
           userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
