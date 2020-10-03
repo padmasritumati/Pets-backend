@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
   if (!email || !password || !name ) {
     return res.status(400).send("Please provide an email, password and a name");
   }
-  console.log("n:",name,"e:",email,"p:",password)
+  //console.log("n:",name,"e:",email,"p:",password)
   try {
     const newUser = await User.create({
       email,

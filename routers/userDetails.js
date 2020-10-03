@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const auth = require("../auth/middleware");
-const Address = require("../models").address;
 const User = require("../models").user;
 const Service = require("../models").service;
 const Pet = require("../models").pet;
@@ -30,8 +29,8 @@ router.get("/pet", auth, async (req, res) => {
 
 router.post("/services", auth, async (req, res) => {
   const userLogged = req.user.dataValues;
-  console.log("user", userLogged);
-  console.log("services", req.body);
+  //console.log("user", userLogged);
+  //console.log("services", req.body);
 
   const {
     boarding,

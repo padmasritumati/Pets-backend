@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const auth = require("../auth/middleware");
-const Address = require("../models").address;
 const User = require("../models").user;
 const Service = require("../models").service;
 const Pet = require("../models").pet;
@@ -12,12 +11,12 @@ const router = new Router();
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  //console.log(id);
   if (isNaN(parseInt(id))) {
     return res.status(400).send({ message: "user id is not a number" });
   }
   const user = await User.findByPk(id, {
-    include: [Address, Service],
+    include: [Service],
   });
   if (user === null) {
     return res.status(404).send({ message: "user not found" });
@@ -39,7 +38,7 @@ router.post("/contact", auth, async (req, res, next) => {
       pet,
     } = req.body;
     const toSend = await User.findByPk(mailToId);
-    console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
+    //console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -73,7 +72,7 @@ router.post("/contact", auth, async (req, res, next) => {
         console.log("error", error);
         return res.status(400).send({ message: "Something went wrong, sorry" });
       } else {
-        console.log("Email sent: " + info.response);
+        //console.log("Email sent: " + info.response);
         res.status(201).json(info.response);
       }
     });

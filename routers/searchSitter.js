@@ -31,18 +31,18 @@ function calculateDistance(latA, lngA, latB, lngB) {
 }
 
 router.get("/:type/:service/:size/:lat/:lng", async (req, res) => {
-  console.log("entered===");
+ // console.log("entered===");
   const { type, service, size, lat, lng } = req.params;
 
   parseFloat(lat);
   parseFloat(lng);
-  console.log("from server", type, service, size, lat, lng);
+ // console.log("from server", type, service, size, lat, lng);
 
   if (!service || !lat || !lng || !type) {
     return res.status(400).send({ message: "Please fill out all the fields" });
   }
 
-  console.log("Before switch1", service);
+  //console.log("Before switch1", service);
   let serviceType;
   let typeSelected;
   let sizeselected;
@@ -67,7 +67,7 @@ router.get("/:type/:service/:size/:lat/:lng", async (req, res) => {
       console.log("default");
     }
   }
-  console.log("Before switch2");
+  //console.log("Before switch2");
 
   switch (size) {
     case "Small(0-7)kg":
@@ -92,13 +92,13 @@ router.get("/:type/:service/:size/:lat/:lng", async (req, res) => {
   } else {
     where = { [serviceType]: true, [sizeselected]: true };
   }
-  console.log("where ", where);
+  //console.log("where ", where);
   try {
     const services = await Service.findAll({
       include: [User],
       where: where,
     });
-    console.log("Service resukt", services);
+    //console.log("Service resukt", services);
     const filteredList = services.filter((userService) => {
       const user = userService.dataValues.user.dataValues;
       const latUser = parseFloat(user.latitude);
@@ -109,7 +109,7 @@ router.get("/:type/:service/:size/:lat/:lng", async (req, res) => {
         parseFloat(lat),
         parseFloat(lng)
       );
-      console.log("distance", distance);
+      //console.log("distance", distance);
       if (distance < 5) {
         return userService;
       } else {

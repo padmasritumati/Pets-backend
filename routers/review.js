@@ -10,7 +10,7 @@ const authMiddleware = require("../auth/middleware");
 router.post("/", authMiddleware, async (req, res) => {
   const userLogged = req.user.dataValues;
   const { rating, review_description ,sitterUserId} = req.body;
-  console.log("rating",req.body)
+ // console.log("rating",req.body)
 
   if (!rating || !review_description) {
     return res.status(400).send("Please fill out all the fields");
