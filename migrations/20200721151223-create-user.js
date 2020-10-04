@@ -10,24 +10,44 @@ module.exports = {
       },
       full_name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       phone: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       image: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       petOwner:{
         type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       petSitter:{
         type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      address:{
+        type:Sequelize.STRING,
+        allowNull: false,
+      },
+      latitude: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
+      },
+      longitude: {
+        type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

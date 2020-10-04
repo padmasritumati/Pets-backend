@@ -2,16 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    //adding a column to address table one to one relationship  ,user to address
-    await queryInterface.addColumn("addresses", "userId", {
-      type: Sequelize.INTEGER,
-      references: {
-        model: "users",
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
-    });
+   
     //adding a column to bookings table one to one relationship, user to booking
     await queryInterface.addColumn("bookings", "sitter_userId", {
       type: Sequelize.INTEGER,
@@ -64,7 +55,7 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn("addresses", "userId");
+    
     await queryInterface.removeColumn("bookings", "sitter_userId");
     await queryInterface.removeColumn("pets", "userId");
     await queryInterface.removeColumn("reviews", "userId");

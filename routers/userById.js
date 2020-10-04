@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const auth = require("../auth/middleware");
-const Address = require("../models").address;
 const User = require("../models").user;
 const Service = require("../models").service;
 const Pet = require("../models").pet;
@@ -9,17 +8,22 @@ const router = new Router();
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  //console.log(id);
   if (isNaN(parseInt(id))) {
     return res.status(400).send({ message: "user id is not a number" });
   }
-  const user = await User.findByPk(id, {
-    include: [Address, Service],
-  });
-  if (user === null) {
-    return res.status(404).send({ message: "user not found" });
+  try {
+    const pets = await Pet.findAll({ where: { userId: id } });
+    const user = await User.findByPk(id, {
+      include: [Service, Pet],
+    });
+    if (user === null) {
+      return res.status(404).send({ message: "user not found" });
+    }
+    res.status(200).send({ message: "ok", user, pets });
+  } catch (e) {
+    console.log(e);
   }
-  res.status(200).send({ message: "ok", user });
 });
 
 router.post("/contact", auth, async (req, res, next) => {
@@ -36,7 +40,28 @@ router.post("/contact", auth, async (req, res, next) => {
       pet,
     } = req.body;
     const toSend = await User.findByPk(mailToId);
-    console.log("bef", process.env.EMAIL, process.env.PASSWORD_EMAIL);
+    var html;
+    if (toSend.dataValues.petSitter) {
+      html = `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
+    <h3><strong>${
+      userLogged.full_name
+    }</strong> has required your services.</h3>
+    <p><u>Requested Service</u>: ${selectedservice} </p>
+    <p><u>Date</u>:${date}</p>
+    <p>${selectedservice === "Boarding" ? `End Date:${enddate}` : ""}</p>
+    <p><u>Time</u>:${time}</p>
+    <p><u>Message</u>:${message}</p>
+    <p><u>Pet</u>:${pet}</p>
+    <p>You can find more information <a href="http://localhost:3000/sitters/${
+      userLogged.id
+    }">here</a></p>
+    `;
+    } else {
+      html = `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
+      <p><u>Message</u>:${message}</p>
+      `;
+    }
+
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -47,22 +72,10 @@ router.post("/contact", auth, async (req, res, next) => {
     console.log("after");
 
     var mailOptions = {
-      from: `${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
-      to: `${userLogged.email}`,
+      from:`${userLogged.full_name} from PETS <${process.env.EMAIL}>`,
+      to: `${toSend.email}`,
       subject: "You have received a new request!",
-      html: `<h2>Hello <strong>${toSend.dataValues.full_name}<strong>!</h2>
-      <h3><strong>${
-        userLogged.full_name
-      }</strong> has required your services.</h3>
-      <p><u>Requested Service</u>: ${selectedservice} </p>
-      <p><u>Date</u>:${date}</p>
-      <p>${selectedservice === "Boarding" ? `End Date:${enddate}` : ""}</p>
-      <p><u>Time</u>:${time}</p>
-      <p><u>Message</u>:${message}</p>
-      <p><u>Pet</u>:${pet}</p>
-     
-      
-      `
+      html: html,
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function (error, info) {
@@ -70,7 +83,7 @@ router.post("/contact", auth, async (req, res, next) => {
         console.log("error", error);
         return res.status(400).send({ message: "Something went wrong, sorry" });
       } else {
-        console.log("Email sent: " + info.response);
+        //console.log("Email sent: " + info.response);
         res.status(201).json(info.response);
       }
     });
