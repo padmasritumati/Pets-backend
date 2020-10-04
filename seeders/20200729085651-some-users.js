@@ -24,13 +24,13 @@ module.exports = {
         },
         {
           full_name: "PadmaSri",
-          email: "tumatipadmasri98@gmai.com",
+          email: "tumatipadmasri98@gmail.com",
           password: bcrypt.hashSync("2608", SALT_ROUNDS),
           phone: "685805082",
           image:
             "https://res.cloudinary.com/dsuvhhlxm/image/upload/v1597404560/pet_image/girl1_yziyq3.jpg",
-          petOwner: false,
-          petSitter: true,
+          petOwner: true,
+          petSitter: false,
           address:"Maarssen,Zebraspoor,422",
           latitude:52.141720,
           longitude:5.018690,
@@ -44,8 +44,8 @@ module.exports = {
           phone: "685805082",
           image:
             "https://res.cloudinary.com/dsuvhhlxm/image/upload/v1597404580/pet_image/boy_m4vjt3.webp",
-          petOwner: true,
-          petSitter: false,
+          petOwner: false,
+          petSitter: true,
           address:"Maarssen,Zebraspoor,421",
           latitude:52.141720,
           longitude:5.018690,

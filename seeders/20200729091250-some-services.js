@@ -41,7 +41,7 @@ module.exports = {
           large: true,
           gaint: true,
           cat: false,
-          userId: 2,
+          userId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
